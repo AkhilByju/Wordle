@@ -1,8 +1,15 @@
 import os
 import random
-from words import WORDS
+from Wordle.words import WORDS
 
-history = []
+"""
+print("\033[92mThis is green\033[0m")
+print("\033[93mThis is yellow\033[0m")
+print("\033[91mThis is red\033[0m")
+
+"""
+
+word = random.choice(WORDS)
 
 def gameInstructions():
     # Clear the terminal
@@ -18,16 +25,25 @@ def gameInstructions():
 def gameOver(word):
     print(f"Congratulations you guessed {word} correctly")
 
-def printHistory():
-    return 
+def printGuess(guess):
+    check(guess)
+    return
+
+def check(guess):
+    result = []
+    chars = set(word)
+    for i in range(guess):
+        if guess[i] == word[i]:
+            result.append()
+    
+    return result
 
 def getUserInput():
     guess = input("Guess: ")
     return guess
 
 def startGame():
-    global history
-    word = random.choice(WORDS)
+    global word
     max_attempts = 6
     attempts = 0
     solved = False
@@ -36,6 +52,10 @@ def startGame():
 
     while not solved: 
         guess = getUserInput()
+
+        printGuess(guess)
+        
+
         if guess == word:
             solved = True
 
