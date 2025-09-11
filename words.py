@@ -1,0 +1,5 @@
+WORDS = [
+    "apple",
+    "grape",
+    "table",
+]
