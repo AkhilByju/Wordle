@@ -65,6 +65,11 @@ def startGame():
 
         if guess == word:
             solved = True
+        else:
+            attempts += 1
+            if attempts >= max_attempts:
+                print(f"Out of attempts! The word as {word}")
+                break
 
     gameOver(word)
     
