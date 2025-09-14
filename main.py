@@ -1,6 +1,6 @@
 import os
 import random
-from Wordle.words import WORDS
+from words import WORDS
 
 """
 print("\033[92mThis is green\033[0m")
@@ -26,17 +26,22 @@ def gameOver(word):
     print(f"Congratulations you guessed {word} correctly")
 
 def printGuess(guess):
-    check(guess)
+    colored_guess = check(guess)
+    print(colored_guess)
     return
 
 def check(guess):
     result = []
     chars = set(word)
-    for i in range(guess):
+    for i in range(len(guess)):
         if guess[i] == word[i]:
-            result.append()
+            result.append(f"\033[92m{guess[i]}\033[0m")
+        elif guess[i] in chars:
+            result.append(f"\033[93m{guess[i]}\033[0m")
+        else:
+            result.append(guess[i])
     
-    return result
+    return "".join(result)
 
 def getUserInput():
     guess = input("Guess: ")
@@ -51,9 +56,11 @@ def startGame():
     gameInstructions()
 
     while not solved: 
-        guess = getUserInput()
+        guess = ""
+        while len(guess) != 5:
+            guess = getUserInput()
 
-        printGuess(guess)
+        printGuess(guess.lower())
         
 
         if guess == word:
