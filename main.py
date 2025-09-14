@@ -65,6 +65,15 @@ def getUserInput():
     guess = input("Guess: ")
     return guess
 
+def playAgain():
+    ans = input("Would you like to play again (y/n): ").lower()
+    
+    while ans != "y" and ans != "n":  
+        ans = input("Please enter y or n: ").lower()
+    
+    return ans == "y"  
+        
+
 def startGame():
     global word, attempts, max_attempts
     solved = False
@@ -93,4 +102,8 @@ def startGame():
     
 
 if __name__ == "__main__":
-    startGame()
+    while True:
+        startGame()
+        if not playAgain():
+            print("Thanks for playing!")
+            break
