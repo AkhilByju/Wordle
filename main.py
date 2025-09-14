@@ -56,8 +56,9 @@ def startGame():
     gameInstructions()
 
     while not solved: 
-        guess = ""
+        guess = getUserInput()
         while len(guess) != 5:
+            print("\033[91mMake sure your guess contains 5 letters\033[0m")
             guess = getUserInput()
 
         printGuess(guess.lower())
@@ -65,13 +66,16 @@ def startGame():
 
         if guess == word:
             solved = True
+            gameOver(word)
+            break
         else:
             attempts += 1
             if attempts >= max_attempts:
                 print(f"Out of attempts! The word as {word}")
                 break
+            else:
+                print(f"You are on your {attempts} guess, you have {max_attempts - attempts} guesses remaining")
 
-    gameOver(word)
     
 
 if __name__ == "__main__":
