@@ -31,7 +31,7 @@ def gameOver(word):
 def printGuess(guess):
     global attempts
     global max_attempts
-    colored_guess = check(guess)
+    colored_guess = check(guess, word)
     history.append(colored_guess)
     os.system("clear")
     print(f"You are on your {attempts} guess, you have {max_attempts - attempts} guesses remaining")
@@ -47,16 +47,16 @@ def check(guess, word):
     for i in range(len(guess)):
         if guess[i] == word[i]:
             result[i] = f"\033[92m{guess[i]}\033[0m"
-            word_chars[i] = None  # mark as used
+            word_chars[i] = None 
 
     # Second pass: check yellows
     for i in range(len(guess)):
         if result[i] == "":
             if guess[i] in word_chars:
                 result[i] = f"\033[93m{guess[i]}\033[0m"
-                word_chars[word_chars.index(guess[i])] = None  # mark as used
+                word_chars[word_chars.index(guess[i])] = None 
             else:
-                result[i] = guess[i]  # gray/default
+                result[i] = f"\033[90m{guess[i]}\033[0m"
 
     return "".join(result)
 
