@@ -10,6 +10,9 @@ print("\033[91mThis is red\033[0m")
 """
 
 word = random.choice(WORDS)
+history = []
+max_attempts = 6
+attempts = 0
 
 def gameInstructions():
     # Clear the terminal
@@ -26,8 +29,14 @@ def gameOver(word):
     print(f"Congratulations you guessed {word} correctly")
 
 def printGuess(guess):
+    global attempts
+    global max_attempts
     colored_guess = check(guess)
-    print(colored_guess)
+    history.append(colored_guess)
+    os.system("clear")
+    print(f"You are on your {attempts} guess, you have {max_attempts - attempts} guesses remaining")
+    for row in history:
+        print(row)
     return
 
 def check(guess):
@@ -48,9 +57,7 @@ def getUserInput():
     return guess
 
 def startGame():
-    global word
-    max_attempts = 6
-    attempts = 0
+    global word, attempts, max_attempts
     solved = False
 
     gameInstructions()
@@ -61,6 +68,7 @@ def startGame():
             print("\033[91mMake sure your guess contains 5 letters\033[0m")
             guess = getUserInput()
 
+        attempts += 1
         printGuess(guess.lower())
         
 
@@ -69,12 +77,9 @@ def startGame():
             gameOver(word)
             break
         else:
-            attempts += 1
             if attempts >= max_attempts:
-                print(f"Out of attempts! The word as {word}")
+                print(f"Out of attempts! The word was {word}")
                 break
-            else:
-                print(f"You are on your {attempts} guess, you have {max_attempts - attempts} guesses remaining")
 
     
 
