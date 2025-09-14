@@ -39,18 +39,27 @@ def printGuess(guess):
         print(row)
     return
 
-def check(guess):
-    result = []
-    chars = set(word)
+def check(guess, word):
+    result = [""] * len(word)
+    word_chars = list(word)
+
+    # First pass: check greens
     for i in range(len(guess)):
         if guess[i] == word[i]:
-            result.append(f"\033[92m{guess[i]}\033[0m")
-        elif guess[i] in chars:
-            result.append(f"\033[93m{guess[i]}\033[0m")
-        else:
-            result.append(guess[i])
-    
+            result[i] = f"\033[92m{guess[i]}\033[0m"
+            word_chars[i] = None  # mark as used
+
+    # Second pass: check yellows
+    for i in range(len(guess)):
+        if result[i] == "":
+            if guess[i] in word_chars:
+                result[i] = f"\033[93m{guess[i]}\033[0m"
+                word_chars[word_chars.index(guess[i])] = None  # mark as used
+            else:
+                result[i] = guess[i]  # gray/default
+
     return "".join(result)
+
 
 def getUserInput():
     guess = input("Guess: ")
